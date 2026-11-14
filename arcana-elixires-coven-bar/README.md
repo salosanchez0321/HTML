@@ -1,46 +1,39 @@
-# Arcana & Elixires · Coven Bar — Maqueta front-end
+# Arcana & Elixires · Coven Bar — Sitio web
 
-SPA visual en **HTML5 + Bootstrap 5 (CDN) + JavaScript vanilla**. Sin build ni dependencias.
-
-## Cómo abrirla
-Abre `index.html` en el navegador (doble clic) o sírvela con cualquier servidor estático:
-```
-npx serve .        # o: python3 -m http.server
-```
+Sitio corporativo de 5 páginas en HTML, CSS y JavaScript puro (sin frameworks ni dependencias).
 
 ## Estructura
 ```
-index.html        Estructura, sprite de iconos SVG y todas las vistas (<section data-view>)
-css/styles.css    1) Tokens de diseño  2) Puente con Bootstrap  3) Base/a11y  4) Componentes  5) Responsive
-js/data.js        Datos simulados (usuario, cuentas, movimientos, carta, experiencias)
-js/app.js         Router, render de componentes, modal, toasts, formularios e interacciones
-img/              Fotografías de la carta y del ritual destacado
+index.html        Inicio
+nosotros.html     Historia, misión, visión, valores, equipo y cifras
+productos.html    Catálogo con filtro por categoría
+clientes.html     Testimonios, marcas aliadas y casos de éxito
+contacto.html     Formulario, datos de contacto, horarios, mapa y redes
+css/styles.css    Estilos (variables de diseño al inicio del archivo)
+js/main.js        Menú móvil, animaciones, contadores, filtro y formulario
+img/              Fotografías y favicon
+robots.txt, sitemap.xml
 ```
 
-## Mapa de vistas (equivalencia con una app financiera)
-| Vista          | Hash         | Equivale a     | Contenido |
-|----------------|--------------|----------------|-----------|
-| Inicio         | `#inicio`    | Panel          | Saldo total con tendencia, acciones rápidas, ritual destacado, próxima reserva, gráfico de consumos, movimientos recientes |
-| Mi Grimorio    | `#grimorio`  | Cuentas        | Carnet de miembro con nivel, monedero, puntos de Esencia, tarjeta regalo |
-| Reservar       | `#reservar`  | Transferencias | Formulario de reserva (abono desde cuenta origen) y "Regalar Esencia" (monto, origen, destinatario) |
-| Carta & Pagos  | `#carta`     | Pagos          | Carta filtrable + cuenta de mesa con propina y pago |
-| Historial      | `#historial` | Movimientos    | Búsqueda y filtro de ingresos/consumos |
-| Ajustes        | `#ajustes`   | Configuración  | Perfil validado (+18), notificaciones, reducir animaciones |
-| Más            | `#mas`       | —              | Accesos secundarios desde la barra inferior |
+## Cómo verlo
+Abre `index.html` en tu navegador, o sube la carpeta completa a cualquier hosting
+(Netlify, Vercel, GitHub Pages, cPanel…).
 
-## Navegación sincronizada
-Todo enlace con `data-view-link="vista"` (navbar superior, tabbar inferior, botones) pasa por el router
-de `app.js`, que actualiza `.active` y `aria-current="page"` en ambas navegaciones.
-`TAB_GROUP` define qué pestaña inferior se ilumina para vistas secundarias (Historial/Ajustes → Más).
+## Formulario de contacto
+Por defecto, al enviar se abre el correo del visitante con el mensaje redactado hacia
+`hola@covenbar.co`. Para recibir los mensajes automáticamente:
+1. Crea un formulario gratis en https://formspree.io
+2. Copia tu endpoint (ej. `https://formspree.io/f/abcdwxyz`)
+3. Pégalo en `FORM_ENDPOINT` al inicio de `js/main.js`
 
-## Flujos para probar
-- **Reserva con error**: elige un lunes o martes → "El coven descansa".
-- **Regalo con error**: regala más de lo disponible en la cuenta de origen → saldo insuficiente.
-- **Pago**: añade elixires a la cuenta de mesa y paga; ganas puntos de Esencia.
-- **Validación**: envía cualquier formulario vacío para ver los estilos nativos de Bootstrap.
+## Antes de publicar
+Reemplaza los datos de ejemplo por los reales:
+- Dirección, teléfono/WhatsApp (+57 310 555 0137), correos y horarios (footer de cada página y contacto.html)
+- Coordenadas del mapa (iframe en contacto.html)
+- Enlaces de redes sociales
+- Precios, cifras, testimonios y nombres del equipo
+- En `sitemap.xml`, `robots.txt` y la etiqueta `og:image`, usa la URL final de tu dominio
 
-## Migrar a otro stack
-- Copia la sección **1. TOKENS** de `styles.css` como tema global.
-- Cada función `render*` de `app.js` es un componente; `state` es el store.
-- Sustituye `window.AE_DATA` por llamadas a tu API manteniendo los mismos campos.
-- Las clases propias llevan prefijo `ae-`; el comportamiento depende solo de atributos `data-*`.
+## Personalizar el diseño
+Colores, tipografías, radios y sombras están centralizados como variables en la sección
+"1. Tokens de diseño" de `css/styles.css`.
